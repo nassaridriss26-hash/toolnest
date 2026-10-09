@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolNest — Free Online Tools for Everyone</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free, fast, and secure online tools for everyone. Word Counter, Percentage Calculator, Unit Converter, and more. No registration required.">
+    <meta name="keywords" content="word counter, percentage calculator, unit converter, free online tools, toolnest">
+    <meta name="author" content="ToolNest">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom scrollbar and smooth transitions */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .view-content {
+            display: none;
+        }
+        .view-content.active {
+            display: block;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Ad Container Placeholder styling */
+        .ad-container {
+            min-height: 90px;
+            border: 1px dashed rgba(156, 163, 175, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            background-color: rgba(243, 244, 246, 0.5);
+            transition: background-color 0.3s;
+        }
+        .dark .ad-container {
+            background-color: rgba(31, 41, 55, 0.5);
+            border-color: rgba(75, 85, 99, 0.4);
+        }
+        /* Glassmorphism elements */
+        .glass-nav {
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        .dark .glass-nav {
+            background-color: rgba(17, 24, 39, 0.85);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="sticky top-0 z-50 glass-nav border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo -->
+                <a href="#home" class="flex items-center gap-2 text-xl font-bold text-brand-600 dark:text-brand-500">
+                    <div class="w-9 h-9 rounded-lg bg-brand-600 text-white flex items-center justify-center font-extrabold shadow-md">
+                        <i class="fa-solid fa-cubes text-lg"></i>
+                    </div>
+                    <span>Tool<span class="text-slate-900 dark:text-white">Nest</span></span>
+                </a>
+
+                <!-- Search Bar (Header - Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="global-search" placeholder="Search tools (e.g., word counter, unit)..." 
+                        class="w-full pl-9 pr-4 py-1.5 text-sm rounded-lg bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-brand-500 dark:focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition">
+                </div>
+
+                <!-- Navigation Links & Theme Toggle -->
+                <nav class="hidden md:flex items-center gap-1 font-medium text-sm">
+                    <a href="#home" class="nav-link px-3 py-2 rounded-md hover:text-brand-600 dark:hover:text-brand-500 text-slate-600 dark:text-slate-300">Home</a>
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-md hover:text-brand-600 dark:hover:text-brand-500 text-slate-600 dark:text-slate-300 inline-flex items-center gap-1">
+                            Tools <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 w-48 py-2 mt-1 bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 hidden group-hover:block transition-all">
+                            <a href="#word-counter" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200"><i class="fa-solid fa-font mr-2 text-brand-500"></i> Word Counter</a>
+                            <a href="#percentage-calculator" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200"><i class="fa-solid fa-percent mr-2 text-emerald-500"></i> Percentage Calc</a>
+                            <a href="#unit-converter" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200"><i class="fa-solid fa-right-left mr-2 text-amber-500"></i> Unit Converter</a>
+                        </div>
+                    </div>
+                    <a href="#about" class="nav-link px-3 py-2 rounded-md hover:text-brand-600 dark:hover:text-brand-500 text-slate-600 dark:text-slate-300">About</a>
+                    <a href="#contact" class="nav-link px-3 py-2 rounded-md hover:text-brand-600 dark:hover:text-brand-500 text-slate-600 dark:text-slate-300">Contact</a>
+                    
+                    <!-- Dark Mode Switcher -->
+                    <button id="theme-toggle" class="ml-4 p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-lg" title="Toggle Theme">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu & Theme Buttons -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <button id="theme-toggle-mobile" class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-lg">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-2 pb-4 space-y-1">
+            <div class="p-2">
+                <input type="text" id="mobile-search" placeholder="Search tools..." 
+                    class="w-full px-3 py-2 text-sm rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none">
+            </div>
+            <a href="#home" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Home</a>
+            <div class="px-3 py-1 text-xs font-semibold uppercase text-slate-400">Tools</div>
+            <a href="#word-counter" class="mobile-nav-link block pl-6 py-2 rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-font mr-2 text-brand-500"></i> Word Counter</a>
+            <a href="#percentage-calculator" class="mobile-nav-link block pl-6 py-2 rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-percent mr-2 text-emerald-500"></i> Percentage Calculator</a>
+            <a href="#unit-converter" class="mobile-nav-link block pl-6 py-2 rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-right-left mr-2 text-amber-500"></i> Unit Converter</a>
+            <div class="border-t border-slate-200 dark:border-slate-800 my-2"></div>
+            <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-100 dark:hover:bg-slate-800">About</a>
+            <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Contact</a>
+            <a href="#privacy" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Privacy Policy</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER FOR VIEWS -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- Header Top Ad Container (Monetization Placeholder) -->
+        <div class="ad-container" id="ad-header-top">
+            <!-- AdSense slot code can be inserted here after approval -->
+            <span class="text-xs text-slate-400 uppercase tracking-widest"><i class="fa-solid fa-rectangle-ad mr-1"></i> Advertisement</span>
+        </div>
+
+        <!-- VIEW 1: HOME DASHBOARD -->
+        <section id="view-home" class="view-content active space-y-8">
+            <!-- Hero Banner -->
+            <div class="text-center py-8 px-4 sm:px-6 rounded-2xl bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 text-white shadow-lg relative overflow-hidden">
+                <div class="max-w-3xl mx-auto relative z-10 space-y-4">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Free Online Tools for Everyone</h1>
+                    <p class="text-indigo-100 text-base sm:text-lg max-w-2xl mx-auto">Fast, accurate, and privacy-focused utilities directly in your browser. No registration or installation required.</p>
+                    <div class="flex flex-wrap justify-center gap-3 pt-2">
+                        <a href="#word-counter" class="px-4 py-2 bg-white text-brand-700 rounded-lg font-semibold hover:bg-indigo-50 shadow text-sm transition">Try Word Counter</a>
+                        <a href="#percentage-calculator" class="px-4 py-2 bg-indigo-700/60 backdrop-blur text-white border border-indigo-400/30 rounded-lg font-semibold hover:bg-indigo-700/80 shadow text-sm transition">Percentage Calculator</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Filter Categories -->
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div class="flex items-center gap-2 overflow-x-auto pb-1" id="category-filters">
+                    <button data-filter="all" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-brand-600 text-white">All Tools</button>
+                    <button data-filter="text" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300">Text & Writing</button>
+                    <button data-filter="math" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300">Math & Finance</button>
+                    <button data-filter="converter" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300">Converters</button>
+                </div>
+                <div class="text-xs text-slate-500" id="tool-count-display">Showing 3 tools</div>
+            </div>
+
+            <!-- Tool Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tools-grid">
+                <!-- Tool Card 1 -->
+                <div class="tool-card group bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700/60 hover:shadow-md hover:border-brand-500 transition duration-200 flex flex-col justify-between" data-category="text" data-keywords="word counter text length characters sentences paragraphs">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mb-4 group-hover:scale-10 font-bold transition-transform">
+                            <i class="fa-solid fa-font"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition">Word Counter</h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-4">Analyze character count, words, sentences, reading time, and keyword densities in real-time.</p>
+                    </div>
+                    <a href="#word-counter" class="inline-flex items-center text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline">
+                        Open Tool <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Tool Card 2 -->
+                <div class="tool-card group bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700/60 hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between" data-category="math" data-keywords="percentage calculator math ratio increase decrease percentage change">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-10 font-bold transition-transform">
+                            <i class="fa-solid fa-percent"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">Percentage Calculator</h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-4">Calculate basic percentages, percentage increases/decreases, and ratios instantly.</p>
+                    </div>
+                    <a href="#percentage-calculator" class="inline-flex items-center text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+                        Open Tool <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Tool Card 3 -->
+                <div class="tool-card group bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700/60 hover:shadow-md hover:border-amber-500 transition duration-200 flex flex-col justify-between" data-category="converter" data-keywords="unit converter length mass temperature volume convert meters kilograms fahrenheit">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-10 font-bold transition-transform">
+                            <i class="fa-solid fa-right-left"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition">Unit Converter</h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-4">Convert units effortlessly across Length, Mass, Temperature, and Volume metrics.</p>
+                    </div>
+                    <a href="#unit-converter" class="inline-flex items-center text-sm font-semibold text-amber-600 dark:text-amber-400 hover:underline">
+                        Open Tool <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="no-results" class="hidden text-center py-12 bg-white dark:bg-slate-800 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
+                <i class="fa-solid fa-magnifying-glass text-4xl text-slate-400 mb-3"></i>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">No matching tools found</h3>
+                <p class="text-slate-500 text-sm mt-1">Try searching for keywords like "word", "percent", or "convert".</p>
+                <button id="reset-search" class="mt-4 px-4 py-2 bg-brand-600 text-white text-xs font-semibold rounded-lg hover:bg-brand-700 transition">View All Tools</button>
+            </div>
+
+            <!-- Features Highlights -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+                <div class="p-5 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 flex gap-4 items-start">
+                    <div class="p-3 bg-brand-50 dark:bg-slate-700 text-brand-600 dark:text-brand-400 rounded-lg"><i class="fa-solid fa-bolt text-xl"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">Client-Side Speed</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Instant calculations processed entirely inside your web browser for speed.</p>
+                    </div>
+                </div>
+                <div class="p-5 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 flex gap-4 items-start">
+                    <div class="p-3 bg-brand-50 dark:bg-slate-700 text-brand-600 dark:text-brand-400 rounded-lg"><i class="fa-solid fa-user-shield text-xl"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">Privacy Guaranteed</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Your data never leaves your device. No signups or tracking of text input.</p>
+                    </div>
+                </div>
+                <div class="p-5 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 flex gap-4 items-start">
+                    <div class="p-3 bg-brand-50 dark:bg-slate-700 text-brand-600 dark:text-brand-400 rounded-lg"><i class="fa-solid fa-mobile-screen text-xl"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">Fully Responsive</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Designed for smooth experience across mobile phones, tablets, and desktops.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: WORD COUNTER -->
+        <section id="view-word-counter" class="view-content space-y-6">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Word & Text Counter</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Real-time statistics for words, characters, sentences, paragraphs, and keyword frequencies.</p>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-brand-600 dark:text-brand-400" id="wc-words">0</div>
+                    <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Words</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400" id="wc-chars">0</div>
+                    <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Characters</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400" id="wc-chars-nospaces">0</div>
+                    <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">No Spaces</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-emerald-600 dark:text-emerald-400" id="wc-sentences">0</div>
+                    <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Sentences</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-amber-600 dark:text-amber-400" id="wc-paragraphs">0</div>
+                    <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Paragraphs</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-purple-600 dark:text-purple-400" id="wc-reading-time">0m</div>
+                    <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Read Time</div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                <div class="flex items-center justify-between px-4 py-2 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Text Editor</span>
+                    <div class="flex gap-2">
+                        <button id="wc-copy" class="px-3 py-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-600 transition inline-flex items-center gap-1">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                        <button id="wc-clear" class="px-3 py-1 bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400 border border-rose-200 dark:border-rose-900 rounded text-xs font-medium hover:bg-rose-100 transition inline-flex items-center gap-1">
+                            <i class="fa-solid fa-trash-can"></i> Clear
+                        </button>
+                    </div>
+                </div>
+                <textarea id="wc-textarea" rows="8" placeholder="Type or paste your content here to begin analysis..." 
+                    class="w-full p-4 bg-transparent text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none resize-y"></textarea>
+            </div>
+
+            <!-- Keyword Density Analysis -->
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                <h3 class="font-bold text-base text-slate-900 dark:text-white mb-3">Top Keyword Densities</h3>
+                <div id="wc-keywords" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                    <span class="text-xs text-slate-400 col-span-full">Start typing text above to view keyword density...</span>
+                </div>
+            </div>
+
+            <!-- Educational Content -->
+            <div class="prose dark:prose-invert max-w-none bg-slate-100 dark:bg-slate-800/40 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">How Word Counter Works</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">
+                    ToolNest Word Counter processes your text in real time using client-side JavaScript regex pattern matching. Reading time is calculated assuming an average adult reading rate of 200 words per minute.
+                </p>
+            </div>
+        </section>
+
+        <!-- VIEW 3: PERCENTAGE CALCULATOR -->
+        <section id="view-percentage-calculator" class="view-content space-y-6">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Percentage Calculator</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Calculate standard percentages, ratios, and percentage differences effortlessly.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mode 1: What is X% of Y? -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-1">Percentage of Value</h3>
+                        <p class="text-xs text-slate-500 mb-4">What is X% of Y?</p>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Percentage (X%)</label>
+                                <input type="number" id="pc1-x" placeholder="e.g., 15" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Total Amount (Y)</label>
+                                <input type="number" id="pc1-y" placeholder="e.g., 200" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-emerald-500">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <div class="text-xs font-medium text-slate-500">Result:</div>
+                        <div id="pc1-result" class="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">—</div>
+                    </div>
+                </div>
+
+                <!-- Mode 2: X is what % of Y? -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-1">Ratio Percentage</h3>
+                        <p class="text-xs text-slate-500 mb-4">X is what % of Y?</p>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Part Value (X)</label>
+                                <input type="number" id="pc2-x" placeholder="e.g., 30" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Total Amount (Y)</label>
+                                <input type="number" id="pc2-y" placeholder="e.g., 150" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-emerald-500">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <div class="text-xs font-medium text-slate-500">Result:</div>
+                        <div id="pc2-result" class="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">—</div>
+                    </div>
+                </div>
+
+                <!-- Mode 3: % Increase/Decrease -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-1">Percentage Change</h3>
+                        <p class="text-xs text-slate-500 mb-4">% Increase or Decrease from X to Y</p>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Initial Value (X)</label>
+                                <input type="number" id="pc3-x" placeholder="e.g., 50" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Final Value (Y)</label>
+                                <input type="number" id="pc3-y" placeholder="e.g., 75" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-emerald-500">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <div class="text-xs font-medium text-slate-500">Result:</div>
+                        <div id="pc3-result" class="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulas Reference -->
+            <div class="bg-slate-100 dark:bg-slate-800/40 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Formula Guide</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600 dark:text-slate-300">
+                    <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <strong class="block text-slate-800 dark:text-slate-100 mb-1">Value = (X / 100) × Y</strong>
+                        Used to find a percentage portion of a total number.
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <strong class="block text-slate-800 dark:text-slate-100 mb-1">Percentage = (X / Y) × 100</strong>
+                        Used to determine the proportion of one number relative to another.
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <strong class="block text-slate-800 dark:text-slate-100 mb-1">Change % = ((Y - X) / X) × 100</strong>
+                        Calculates growth or decline between two numerical values.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: UNIT CONVERTER -->
+        <section id="view-unit-converter" class="view-content space-y-6">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Universal Unit Converter</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Convert common metrics across length, mass, temperature, and volume.</p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm max-w-3xl mx-auto space-y-6">
+                <!-- Category Tabs -->
+                <div class="flex border-b border-slate-200 dark:border-slate-700 gap-2 overflow-x-auto pb-2" id="uc-tabs">
+                    <button data-type="length" class="uc-tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-amber-500 text-amber-600 dark:text-amber-400">Length</button>
+                    <button data-type="mass" class="uc-tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400">Mass</button>
+                    <button data-type="temperature" class="uc-tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400">Temperature</button>
+                    <button data-type="volume" class="uc-tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400">Volume</button>
+                </div>
+
+                <!-- Converter Controls -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+                    <!-- From Field -->
+                    <div class="md:col-span-2 space-y-2">
+                        <label class="block text-xs font-semibold text-slate-500">From</label>
+                        <input type="number" id="uc-from-val" value="1" class="w-full px-3 py-2 text-base rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-amber-500 font-medium">
+                        <select id="uc-from-unit" class="w-full px-3 py-2 text-sm rounded-lg bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 focus:outline-none">
+                            <!-- Populated dynamically by JS -->
+                        </select>
+                    </div>
+
+                    <!-- Swap Button -->
+                    <div class="flex justify-center md:pt-6">
+                        <button id="uc-swap" class="p-3 bg-amber-50 dark:bg-slate-700 text-amber-600 dark:text-amber-400 rounded-full hover:bg-amber-100 dark:hover:bg-slate-600 transition shadow-sm" title="Swap Units">
+                            <i class="fa-solid fa-arrows-rotate text-lg"></i>
+                        </button>
+                    </div>
+
+                    <!-- To Field -->
+                    <div class="md:col-span-2 space-y-2">
+                        <label class="block text-xs font-semibold text-slate-500">To</label>
+                        <input type="number" id="uc-to-val" readonly class="w-full px-3 py-2 text-base rounded-lg bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 font-bold text-amber-600 dark:text-amber-400 focus:outline-none">
+                        <select id="uc-to-unit" class="w-full px-3 py-2 text-sm rounded-lg bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 focus:outline-none">
+                            <!-- Populated dynamically by JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Formula Output -->
+                <div class="text-xs text-slate-500 text-center pt-2" id="uc-formula-display">
+                    1 Meter = 3.28084 Feet
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 5: ABOUT PAGE -->
+        <section id="view-about" class="view-content space-y-6 max-w-4xl mx-auto">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-4 text-center">
+                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">About ToolNest</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Free, accessible, browser-native online utilities for students, professionals, and creators.</p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Our Mission</h2>
+                    <p>ToolNest was created with a simple core philosophy: everyday utility tools should be free, lightning-fast, and entirely private. You shouldn't have to navigate heavy popups, create accounts, or upload private documents to server pipelines just to perform basic word counting, percentage calculations, or unit conversions.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-shield-halved text-brand-500 mr-2"></i> 100% Browser Local</h3>
+                        <p class="text-xs text-slate-500">All logic runs within your browser JavaScript context. Your data is never transmitted to remote servers.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-bolt text-amber-500 mr-2"></i> Lightweight & Mobile First</h3>
+                        <p class="text-xs text-slate-500">Optimized for fast rendering across desktop and mobile devices without heavy libraries or tracking overhead.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 6: CONTACT PAGE -->
+        <section id="view-contact" class="view-content space-y-6 max-w-2xl mx-auto">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-4 text-center">
+                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">Contact Us</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Have feedback, tool requests, or questions? Send us a message.</p>
+            </div>
+
+            <!-- Contact Form -->
+            <form id="contact-form" class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-4 shadow-sm">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name</label>
+                    <input type="text" id="contact-name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+                    <input type="email" id="contact-email" required placeholder="jane@example.com" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Subject</label>
+                    <input type="text" id="contact-subject" required placeholder="Feature Suggestion / Feedback" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Message</label>
+                    <textarea id="contact-message" rows="5" required placeholder="Write your message here..." class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500 resize-y"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm shadow transition">
+                    Send Message
+                </button>
+
+                <div id="contact-feedback" class="hidden p-3 rounded-lg text-xs font-medium text-center"></div>
+            </form>
+        </section>
+
+        <!-- VIEW 7: PRIVACY POLICY PAGE -->
+        <section id="view-privacy" class="view-content space-y-6 max-w-4xl mx-auto">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">Privacy Policy</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Last Updated: October 2026</p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <h2 class="text-base font-bold text-slate-900 dark:text-white">1. Overview</h2>
+                <p>ToolNest ("we", "our", "us") values your privacy. This website operates primarily on local client-side scripts. We do not collect, store, or transmit personal data or text input typed into our online tool utilities.</p>
+
+                <h2 class="text-base font-bold text-slate-900 dark:text-white">2. Local Storage</h2>
+                <p>We use browser `localStorage` solely to save user preferences such as your preferred visual theme (Light or Dark Mode). No personal identification data is stored.</p>
+
+                <h2 class="text-base font-bold text-slate-900 dark:text-white">3. Third-Party Advertising and Cookies</h2>
+                <p>ToolNest may display advertising served by Google AdSense or other network partners. Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this or other websites. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our site and/or other sites on the Internet.</p>
+                <p>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" class="text-brand-600 underline">Google Ad Settings</a>.</p>
+
+                <h2 class="text-base font-bold text-slate-900 dark:text-white">4. Contact Information</h2>
+                <p>For questions regarding this privacy policy, please reach out using our <a href="#contact" class="text-brand-600 underline">Contact Form</a>.</p>
+            </div>
+        </section>
+
+        <!-- VIEW 8: 404 / NOT FOUND STATE -->
+        <section id="view-404" class="view-content text-center py-16 space-y-4">
+            <div class="text-6xl font-extrabold text-brand-600 dark:text-brand-500">404</div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Page or Tool Not Found</h1>
+            <p class="text-slate-500 text-sm max-w-md mx-auto">The view or tool you are looking for doesn't exist or was moved.</p>
+            <a href="#home" class="inline-block px-5 py-2.5 bg-brand-600 text-white rounded-lg text-sm font-semibold hover:bg-brand-700 transition">Return to Home</a>
+        </section>
+
+        <!-- Bottom Page Ad Container (Monetization Placeholder) -->
+        <div class="ad-container" id="ad-footer-bottom">
+            <span class="text-xs text-slate-400 uppercase tracking-widest"><i class="fa-solid fa-rectangle-ad mr-1"></i> Advertisement</span>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 mt-12 py-8 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded bg-brand-600 text-white flex items-center justify-center font-bold text-xs">
+                    <i class="fa-solid fa-cubes"></i>
+                </div>
+                <span class="font-semibold text-slate-700 dark:text-slate-300">ToolNest — Free Online Tools</span>
+            </div>
+
+            <div class="flex flex-wrap gap-4 font-medium">
+                <a href="#home" class="hover:text-brand-600">Home</a>
+                <a href="#word-counter" class="hover:text-brand-600">Word Counter</a>
+                <a href="#percentage-calculator" class="hover:text-brand-600">Percentage Calc</a>
+                <a href="#unit-converter" class="hover:text-brand-600">Unit Converter</a>
+                <a href="#about" class="hover:text-brand-600">About</a>
+                <a href="#contact" class="hover:text-brand-600">Contact</a>
+                <a href="#privacy" class="hover:text-brand-600">Privacy Policy</a>
+            </div>
+
+            <div>
+                © 2026 ToolNest. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        /* ToolNest Single-Page Application logic */
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // ==========================================
+            // 1. ROUTING SYSTEM & SPA NAVIGATION
+            // ==========================================
+            const views = document.querySelectorAll('.view-content');
+            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            function handleRoute() {
+                let hash = window.location.hash.replace('#', '') || 'home';
+                let targetView = document.getElementById(`view-${hash}`);
+
+                // Hide all views
+                views.forEach(view => view.classList.remove('active'));
+
+                // Close mobile menu if open
+                if (mobileMenu) mobileMenu.classList.add('hidden');
+
+                if (targetView) {
+                    targetView.classList.add('active');
+                } else {
+                    document.getElementById('view-404').classList.add('active');
+                }
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            window.addEventListener('hashchange', handleRoute);
+            handleRoute(); // Initial call
+
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // ==========================================
+            // 2. THEME SWITCHER (Dark / Light Mode)
+            // ==========================================
+            const themeToggleBtns = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
+            const htmlEl = document.documentElement;
+
+            function setTheme(isDark) {
+                if (isDark) {
+                    htmlEl.classList.add('dark');
+                    localStorage.setItem('toolnest_theme', 'dark');
+                } else {
+                    htmlEl.classList.remove('dark');
+                    localStorage.setItem('toolnest_theme', 'light');
+                }
+            }
+
+            // Init theme from LocalStorage or System Preference
+            const savedTheme = localStorage.getItem('toolnest_theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setTheme(true);
+            } else {
+                setTheme(false);
+            }
+
+            themeToggleBtns.forEach(btn => {
+                btn?.addEventListener('click', () => {
+                    setTheme(!htmlEl.classList.contains('dark'));
+                });
+            });
+
+            // ==========================================
+            // 3. GLOBAL TOOL SEARCH & FILTER
+            // ==========================================
+            const globalSearch = document.getElementById('global-search');
+            const mobileSearch = document.getElementById('mobile-search');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const toolCards = document.querySelectorAll('.tool-card');
+            const noResults = document.getElementById('no-results');
+            const countDisplay = document.getElementById('tool-count-display');
+
+            function filterTools() {
+                const query = (globalSearch.value || mobileSearch?.value || '').toLowerCase().trim();
+                const activeFilterBtn = document.querySelector('.filter-btn.bg-brand-600');
+                const filterCategory = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+
+                let visibleCount = 0;
+
+                toolCards.forEach(card => {
+                    const keywords = card.dataset.keywords.toLowerCase();
+                    const category = card.dataset.category;
+
+                    const matchesSearch = !query || keywords.includes(query);
+                    const matchesCategory = filterCategory === 'all' || category === filterCategory;
+
+                    if (matchesSearch && matchesCategory) {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                if (countDisplay) countDisplay.textContent = `Showing ${visibleCount} tools`;
+
+                if (visibleCount === 0 && noResults) {
+                    noResults.classList.remove('hidden');
+                } else if (noResults) {
+                    noResults.classList.add('hidden');
+                }
+            }
+
+            [globalSearch, mobileSearch].forEach(input => {
+                input?.addEventListener('input', (e) => {
+                    // Sync inputs
+                    if (globalSearch) globalSearch.value = e.target.value;
+                    if (mobileSearch) mobileSearch.value = e.target.value;
+
+                    // Ensure on Home view when typing search
+                    if (window.location.hash !== '#home' && window.location.hash !== '') {
+                        window.location.hash = '#home';
+                    }
+                    filterTools();
+                });
+            });
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-brand-600', 'text-white');
+                        b.classList.add('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                    });
+                    btn.classList.remove('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                    btn.classList.add('bg-brand-600', 'text-white');
+                    filterTools();
+                });
+            });
+
+            document.getElementById('reset-search')?.addEventListener('click', () => {
+                if (globalSearch) globalSearch.value = '';
+                if (mobileSearch) mobileSearch.value = '';
+                filterTools();
+            });
+
+            // ==========================================
+            // 4. TOOL 1: WORD COUNTER LOGIC
+            // ==========================================
+            const wcTextarea = document.getElementById('wc-textarea');
+            const wcWords = document.getElementById('wc-words');
+            const wcChars = document.getElementById('wc-chars');
+            const wcCharsNoSpaces = document.getElementById('wc-chars-nospaces');
+            const wcSentences = document.getElementById('wc-sentences');
+            const wcParagraphs = document.getElementById('wc-paragraphs');
+            const wcReadingTime = document.getElementById('wc-reading-time');
+            const wcKeywords = document.getElementById('wc-keywords');
+
+            function analyzeText() {
+                const text = wcTextarea.value;
+
+                // Character count
+                const charCount = text.length;
+                const charNoSpaceCount = text.replace(/\s/g, '').length;
+
+                // Words
+                const wordsArray = text.trim().split(/\s+/).filter(w => w.length > 0);
+                const wordCount = text.trim() === '' ? 0 : wordsArray.length;
+
+                // Sentences
+                const sentenceCount = text.trim() === '' ? 0 : (text.match(/[^.!?]+[.!?]+/g) || [text]).length;
+
+                // Paragraphs
+                const paragraphCount = text.trim() === '' ? 0 : text.split(/\n+/).filter(p => p.trim().length > 0).length;
+
+                // Reading time (~200 words per min)
+                const readMinutes = Math.ceil(wordCount / 200);
+
+                // Update DOM
+                wcWords.textContent = wordCount.toLocaleString();
+                wcChars.textContent = charCount.toLocaleString();
+                wcCharsNoSpaces.textContent = charNoSpaceCount.toLocaleString();
+                wcSentences.textContent = sentenceCount.toLocaleString();
+                wcParagraphs.textContent = paragraphCount.toLocaleString();
+                wcReadingTime.textContent = `${readMinutes}m`;
+
+                // Keyword Frequency Analysis
+                if (wordCount === 0) {
+                    wcKeywords.innerHTML = '<span class="text-xs text-slate-400 col-span-full">Start typing text above to view keyword density...</span>';
+                    return;
+                }
+
+                const freqMap = {};
+                const stopWords = new Set(['the','be','to','of','and','a','in','that','have','i','it','for','not','on','with','he','as','you','do','at','this','but','his','by','from','they','we','say','her','she','or','an','will','my','one','all','would','there','their','what','so','up','out','if','about','who','get','which','go','me']);
+
+                wordsArray.forEach(word => {
+                    const cleanWord = word.toLowerCase().replace(/[^a-z0-9]/g, '');
+                    if (cleanWord.length > 2 && !stopWords.has(cleanWord)) {
+                        freqMap[cleanWord] = (freqMap[cleanWord] || 0) + 1;
+                    }
+                });
+
+                const sortedKeywords = Object.entries(freqMap)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5);
+
+                if (sortedKeywords.length === 0) {
+                    wcKeywords.innerHTML = '<span class="text-xs text-slate-400 col-span-full">No significant keywords detected.</span>';
+                } else {
+                    wcKeywords.innerHTML = sortedKeywords.map(([word, count]) => {
+                        const pct = ((count / wordCount) * 100).toFixed(1);
+                        return `
+                            <div class="bg-slate-50 dark:bg-slate-700/50 p-2 rounded border border-slate-200 dark:border-slate-700">
+                                <div class="font-semibold text-slate-800 dark:text-slate-200 truncate">${word}</div>
+                                <div class="text-[10px] text-slate-500">${count} times (${pct}%)</div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+
+            wcTextarea?.addEventListener('input', analyzeText);
+
+            document.getElementById('wc-clear')?.addEventListener('click', () => {
+                wcTextarea.value = '';
+                analyzeText();
+            });
+
+            document.getElementById('wc-copy')?.addEventListener('click', () => {
+                if (!wcTextarea.value) return;
+                
+                // Native fallback clipboard strategy
+                const textarea = document.createElement('textarea');
+                textarea.value = wcTextarea.value;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    const copyBtn = document.getElementById('wc-copy');
+                    copyBtn.innerHTML = '<i class="fa-solid fa-check text-emerald-500"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Copy failed');
+                }
+                document.body.removeChild(textarea);
+            });
+
+            // ==========================================
+            // 5. TOOL 2: PERCENTAGE CALCULATOR LOGIC
+            // ==========================================
+            const pc1X = document.getElementById('pc1-x');
+            const pc1Y = document.getElementById('pc1-y');
+            const pc1Res = document.getElementById('pc1-result');
+
+            function calcMode1() {
+                const x = parseFloat(pc1X.value);
+                const y = parseFloat(pc1Y.value);
+                if (!isNaN(x) && !isNaN(y)) {
+                    const res = (x / 100) * y;
+                    pc1Res.textContent = Number.isInteger(res) ? res : res.toFixed(2);
+                } else {
+                    pc1Res.textContent = '—';
+                }
+            }
+            [pc1X, pc1Y].forEach(i => i?.addEventListener('input', calcMode1));
+
+            const pc2X = document.getElementById('pc2-x');
+            const pc2Y = document.getElementById('pc2-y');
+            const pc2Res = document.getElementById('pc2-result');
+
+            function calcMode2() {
+                const x = parseFloat(pc2X.value);
+                const y = parseFloat(pc2Y.value);
+                if (!isNaN(x) && !isNaN(y)) {
+                    if (y === 0) {
+                        pc2Res.textContent = 'Error (Div by 0)';
+                        return;
+                    }
+                    const res = (x / y) * 100;
+                    pc2Res.textContent = `${Number.isInteger(res) ? res : res.toFixed(2)}%`;
+                } else {
+                    pc2Res.textContent = '—';
+                }
+            }
+            [pc2X, pc2Y].forEach(i => i?.addEventListener('input', calcMode2));
+
+            const pc3X = document.getElementById('pc3-x');
+            const pc3Y = document.getElementById('pc3-y');
+            const pc3Res = document.getElementById('pc3-result');
+
+            function calcMode3() {
+                const x = parseFloat(pc3X.value);
+                const y = parseFloat(pc3Y.value);
+                if (!isNaN(x) && !isNaN(y)) {
+                    if (x === 0) {
+                        pc3Res.textContent = 'Error (Div by 0)';
+                        return;
+                    }
+                    const diff = y - x;
+                    const res = (diff / x) * 100;
+                    const formatted = Number.isInteger(res) ? res : res.toFixed(2);
+                    pc3Res.textContent = `${res >= 0 ? '+' : ''}${formatted}%`;
+                } else {
+                    pc3Res.textContent = '—';
+                }
+            }
+            [pc3X, pc3Y].forEach(i => i?.addEventListener('input', calcMode3));
+
+            // ==========================================
+            // 6. TOOL 3: UNIT CONVERTER LOGIC
+            // ==========================================
+            const ucUnits = {
+                length: {
+                    m: { name: 'Meters (m)', rate: 1 },
+                    km: { name: 'Kilometers (km)', rate: 1000 },
+                    cm: { name: 'Centimeters (cm)', rate: 0.01 },
+                    mm: { name: 'Millimeters (mm)', rate: 0.001 },
+                    ft: { name: 'Feet (ft)', rate: 0.3048 },
+                    in: { name: 'Inches (in)', rate: 0.0254 },
+                    mi: { name: 'Miles (mi)', rate: 1609.344 }
+                },
+                mass: {
+                    kg: { name: 'Kilograms (kg)', rate: 1 },
+                    g: { name: 'Grams (g)', rate: 0.001 },
+                    mg: { name: 'Milligrams (mg)', rate: 0.000001 },
+                    lb: { name: 'Pounds (lb)', rate: 0.45359237 },
+                    oz: { name: 'Ounces (oz)', rate: 0.028349523125 }
+                },
+                temperature: {
+                    c: { name: 'Celsius (°C)' },
+                    f: { name: 'Fahrenheit (°F)' },
+                    k: { name: 'Kelvin (K)' }
+                },
+                volume: {
+                    l: { name: 'Liters (L)', rate: 1 },
+                    ml: { name: 'Milliliters (mL)', rate: 0.001 },
+                    gal: { name: 'Gallons (US gal)', rate: 3.78541 },
+                    floz: { name: 'Fluid Ounces (fl oz)', rate: 0.0295735 }
+                }
+            };
+
+            let activeCategory = 'length';
+            const ucFromVal = document.getElementById('uc-from-val');
+            const ucToVal = document.getElementById('uc-to-val');
+            const ucFromUnit = document.getElementById('uc-from-unit');
+            const ucToUnit = document.getElementById('uc-to-unit');
+            const ucFormulaDisplay = document.getElementById('uc-formula-display');
+            const ucTabBtns = document.querySelectorAll('.uc-tab-btn');
+
+            function populateUnitSelects() {
+                const categoryUnits = ucUnits[activeCategory];
+                const optionsHtml = Object.keys(categoryUnits).map(key => {
+                    return `<option value="${key}">${categoryUnits[key].name}</option>`;
+                }).join('');
+
+                ucFromUnit.innerHTML = optionsHtml;
+                ucToUnit.innerHTML = optionsHtml;
+
+                // Default second option for 'to' unit if available
+                const keys = Object.keys(categoryUnits);
+                if (keys.length > 1) {
+                    ucToUnit.selectedIndex = 1;
+                }
+
+                convertUnits();
+            }
+
+            function convertUnits() {
+                const val = parseFloat(ucFromVal.value);
+                if (isNaN(val)) {
+                    ucToVal.value = '';
+                    ucFormulaDisplay.textContent = 'Please enter a valid number';
+                    return;
+                }
+
+                const fromKey = ucFromUnit.value;
+                const toKey = ucToUnit.value;
+
+                if (!fromKey || !toKey) return;
+
+                let result;
+
+                if (activeCategory === 'temperature') {
+                    // Temperature conversion formulas
+                    if (fromKey === toKey) {
+                        result = val;
+                    } else if (fromKey === 'c' && toKey === 'f') {
+                        result = (val * 9/5) + 32;
+                    } else if (fromKey === 'c' && toKey === 'k') {
+                        result = val + 273.15;
+                    } else if (fromKey === 'f' && toKey === 'c') {
+                        result = (val - 32) * 5/9;
+                    } else if (fromKey === 'f' && toKey === 'k') {
+                        result = ((val - 32) * 5/9) + 273.15;
+                    } else if (fromKey === 'k' && toKey === 'c') {
+                        result = val - 273.15;
+                    } else if (fromKey === 'k' && toKey === 'f') {
+                        result = ((val - 273.15) * 9/5) + 32;
+                    }
+                } else {
+                    // Standard linear multiplier conversions
+                    const fromRate = ucUnits[activeCategory][fromKey].rate;
+                    const toRate = ucUnits[activeCategory][toKey].rate;
+                    const inBaseUnit = val * fromRate;
+                    result = inBaseUnit / toRate;
+                }
+
+                ucToVal.value = Number.isInteger(result) ? result : parseFloat(result.toFixed(6));
+
+                // Update formula string
+                const fromName = ucUnits[activeCategory][fromKey].name;
+                const toName = ucUnits[activeCategory][toKey].name;
+                ucFormulaDisplay.textContent = `1 ${fromName.split(' ')[0]} to ${toName.split(' ')[0]} conversion applied.`;
+            }
+
+            ucTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    ucTabBtns.forEach(b => {
+                        b.classList.remove('border-amber-500', 'text-amber-600', 'dark:text-amber-400');
+                        b.classList.add('border-transparent', 'text-slate-500');
+                    });
+                    btn.classList.remove('border-transparent', 'text-slate-500');
+                    btn.classList.add('border-amber-500', 'text-amber-600', 'dark:text-amber-400');
+
+                    activeCategory = btn.dataset.type;
+                    populateUnitSelects();
+                });
+            });
+
+            [ucFromVal, ucFromUnit, ucToUnit].forEach(el => {
+                el?.addEventListener('input', convertUnits);
+                el?.addEventListener('change', convertUnits);
+            });
+
+            document.getElementById('uc-swap')?.addEventListener('click', () => {
+                const temp = ucFromUnit.value;
+                ucFromUnit.value = ucToUnit.value;
+                ucToUnit.value = temp;
+                convertUnits();
+            });
+
+            populateUnitSelects();
+
+            // ==========================================
+            // 7. CONTACT FORM VALIDATION & HANDLING
+            // ==========================================
+            const contactForm = document.getElementById('contact-form');
+            const contactFeedback = document.getElementById('contact-feedback');
+
+            contactForm?.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                contactFeedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+                contactFeedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                contactFeedback.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Thank you! Your message has been sent successfully.';
+
+                contactForm.reset();
+
+                setTimeout(() => {
+                    contactFeedback.classList.add('hidden');
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
